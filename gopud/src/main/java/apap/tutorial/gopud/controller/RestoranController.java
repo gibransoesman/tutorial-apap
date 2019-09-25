@@ -23,7 +23,6 @@ public class RestoranController {
         @RequestParam(value = "alamat", required = true) String alamat,
         @RequestParam(value = "nomorTelepon", required = true) Integer nomorTelepon,
         Model model) {
-            System.out.println("hehe");
             RestoranModel restoran = new RestoranModel(idRestoran, nama, alamat, nomorTelepon);
             restoranService.addRestoran(restoran);
             model.addAttribute("namaResto", nama);

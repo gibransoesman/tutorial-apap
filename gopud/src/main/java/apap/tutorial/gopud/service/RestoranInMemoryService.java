@@ -31,5 +31,15 @@ public class RestoranInMemoryService implements RestoranService {
         }
         return null;
     }
+
+    @Override
+    public RestoranModel getRestoranByIdNama(String nama) {
+        for (RestoranModel count:listRestoran){
+            if (count.getNama().equals(nama)){
+                return count;
+            }
+        }
+        return null;
+    }
 }
 

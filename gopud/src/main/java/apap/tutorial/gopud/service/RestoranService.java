@@ -10,4 +10,6 @@ public interface RestoranService {
     void addRestoran(RestoranModel restoran);
     List<RestoranModel> getRestoranList();
     RestoranModel getRestoranByIdRestoran(String idRestoran);
+    RestoranModel getRestoranByIdNama(String nama);
+
 }

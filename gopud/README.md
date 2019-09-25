@@ -15,4 +15,4 @@ pertanyaan 3
 pertanyaan 4
     yang akan ditampilkan adalah semua restoran yang terdaftar.
 
-    ![SS dari viewall](https://imgur.com/qKIMZVr)
+    ![SS dari viewall](https://ibb.co/dJdtNnJ)
