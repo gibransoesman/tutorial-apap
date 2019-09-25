@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://thymeLeaf.org">
+    <head>
+        <title>Add Restoran</title>
+    </head>
+
+    <body>
+        <h3>Tambah Restoran</h3>
+        <br th:action="@{/restoran/add}" th:object="${restoran}" method="POST">
+            Nama: <br>
+            <input type="text" name="nama"/>
+            </br>
+
+            Alamat: <br>
+            <input type="text" name="alamat" />
+            </br>
+
+            Nomor Telepon: <br>
+            <input type="number" name="nomorTelepon"/>
+        </br>
+        </form>
+    </body>
+</html>

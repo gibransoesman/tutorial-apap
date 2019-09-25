@@ -31,6 +31,11 @@ public class MenuModel implements Serializable{
 
     @NotNull
     @Size(max = 20)
+    @Column(name = "nama", nullable=false)
+    private String nama;
+
+    @NotNull
+    @Size(max = 20)
     @Column(name = "harga", nullable = false)
     private BigInteger harga;
 
@@ -52,8 +57,9 @@ public class MenuModel implements Serializable{
     public MenuModel() {
     }
 
-    public MenuModel(Long id, BigInteger harga, Integer durasiMasak, String deskripsi, RestoranModel restoran) {
+    public MenuModel(Long id, String nama, BigInteger harga, Integer durasiMasak, String deskripsi, RestoranModel restoran) {
         this.id = id;
+        this.nama = nama;
         this.harga = harga;
         this.durasiMasak = durasiMasak;
         this.deskripsi = deskripsi;
@@ -66,6 +72,14 @@ public class MenuModel implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNama() {
+        return this.nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
     public BigInteger getHarga() {
