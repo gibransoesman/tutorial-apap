@@ -1,5 +1,6 @@
 package apap.tutorial.gopud.controller;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class RestoranController{
     private RestoranService restoranService;
 
     @Autowired
-    private MenuService MenuService;
+    private MenuService menuService;
 
     @RequestMapping("/")
     public String home() { return "home"; }
@@ -38,14 +39,14 @@ public class RestoranController{
     @RequestMapping( value = "/restoran/add", method = RequestMethod.POST)
     public String addRestoranSubmit (@ModelAttribute RestoranModel restoran,Model model) {
         restoranService.addRestoran(restoran);
-        model.addAttribute("restoran", restoran.getNama());
+        model.addAttribute("namaResto", restoran.getNama());
         return "add-restoran";
     }
     @RequestMapping( path = "/restoran/view", method = RequestMethod.GET)
     public String view (@RequestParam(value = "idRestoran") Long idRestoran, Model model){
         RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
         model.addAttribute("resto", restoran);
-        List<MenuModel> menuList = MenuService.findAllMenuByIdRestoran(restoran.getIdRestoran());
+        List<MenuModel> menuList = menuService.findAllMenuByIdRestoran(restoran.getIdRestoran());
         model.addAttribute("menuList", menuList);
         return "view-restoran";
     }
@@ -62,8 +63,15 @@ public class RestoranController{
     public String changeRestoranFormSumbit (@PathVariable Long idRestoran, @ModelAttribute RestoranModel restoran, Model model){
         RestoranModel newRestoranData = restoranService.changeRestoran(restoran);
         model.addAttribute("restoran", newRestoranData);
-        return "view-restoran";
+        return "change-restoran";
     }
+    @RequestMapping("/restoran/view-all")
+    public String viewall (Model model){
+        List<RestoranModel> listRestoran = restoranService.getRestoranList();
+        model.addAttribute("restoList", listRestoran);
+        return "viewall-restoran";
+    }
+   
 
 
 }
@@ -116,12 +124,4 @@ public class RestoranController{
 //     model.addAttribute("resto", restoran);
 //     return "view-restoran";
 // }
-
-// @RequestMapping("/restoran/viewall")
-// public String viewall (Model model){
-//     List<RestoranModel> listRestoran = restoranService.getRestoranList();
-//     model.addAttribute("restoList", listRestoran);
-//     return "viewall-restoran";
-// }
-
 // }

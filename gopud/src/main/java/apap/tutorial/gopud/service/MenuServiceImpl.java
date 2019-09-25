@@ -2,7 +2,6 @@ package apap.tutorial.gopud.service;
 
 import apap.tutorial.gopud.model.MenuModel;
 import apap.tutorial.gopud.repository.MenuDb;
-import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,7 @@ public class MenuServiceImpl implements MenuService{
     }
 
     @Override
-    public List<MenuModel> findAllMenuByIdRestoran(long idRestoran){
+    public List<MenuModel> findAllMenuByIdRestoran(Long idRestoran){
         return menuDb.findByRestoranIdRestoran(idRestoran);
 
     }

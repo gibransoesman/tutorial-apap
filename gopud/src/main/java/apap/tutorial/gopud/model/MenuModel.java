@@ -1,7 +1,10 @@
 package apap.tutorial.gopud.model;
 
+import apap.tutorial.gopud.model.RestoranModel;
+
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,6 +27,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+@Entity
+@Table(name = "menu")
 public class MenuModel implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +40,6 @@ public class MenuModel implements Serializable{
     private String nama;
 
     @NotNull
-    @Size(max = 20)
     @Column(name = "harga", nullable = false)
     private BigInteger harga;
 
@@ -53,6 +57,7 @@ public class MenuModel implements Serializable{
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private RestoranModel restoran;
+
 
     public MenuModel() {
     }
@@ -119,6 +124,11 @@ public class MenuModel implements Serializable{
         return this;
     }
 
+    public MenuModel nama(String nama) {
+        this.nama = nama;
+        return this;
+    }
+
     public MenuModel harga(BigInteger harga) {
         this.harga = harga;
         return this;
@@ -138,15 +148,34 @@ public class MenuModel implements Serializable{
         this.restoran = restoran;
         return this;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof MenuModel)) {
+            return false;
+        }
+        MenuModel menuModel = (MenuModel) o;
+        return Objects.equals(id, menuModel.id) && Objects.equals(nama, menuModel.nama) && Objects.equals(harga, menuModel.harga) && Objects.equals(durasiMasak, menuModel.durasiMasak) && Objects.equals(deskripsi, menuModel.deskripsi) && Objects.equals(restoran, menuModel.restoran);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nama, harga, durasiMasak, deskripsi, restoran);
+    }
+
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
+            ", nama='" + getNama() + "'" +
             ", harga='" + getHarga() + "'" +
             ", durasiMasak='" + getDurasiMasak() + "'" +
             ", deskripsi='" + getDeskripsi() + "'" +
             ", restoran='" + getRestoran() + "'" +
             "}";
     }
+
 
 }

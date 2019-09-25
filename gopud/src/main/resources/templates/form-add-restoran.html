@@ -7,18 +7,20 @@
 
     <body>
         <h3>Tambah Restoran</h3>
-        <br th:action="@{/restoran/add}" th:object="${restoran}" method="POST">
+        <form th:action="@{/restoran/add}" th:object="${restoran}" method="POST">
             Nama: <br>
             <input type="text" name="nama"/>
-            </br>
+            <br>
 
             Alamat: <br>
             <input type="text" name="alamat" />
-            </br>
+            <br>
 
             Nomor Telepon: <br>
             <input type="number" name="nomorTelepon"/>
-        </br>
+        <br>
+
+        <button type = "submit"> Submit </button>
         </form>
     </body>
 </html>

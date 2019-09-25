@@ -6,22 +6,23 @@
     </head>
 
     <body>
-        <h2>Change Daya Restoran</h2>
+        <h2>Change Data Restoran</h2>
         <form th:action="@{/restoran/change/{idRestoran}(idRestoran=${restoran.idRestoran})}" th:object="${restoran}" method="POST">
-            <input type="hidden" th:field="*{restoran.idRestoran}" />
+            <input type="hidden" th:field="${restoran.idRestoran}" />
 
             Nama Restoran: <br>
             <input type="text" name="nama" th:value="${restoran.nama}"/>
-            </br>
+            <br>
 
             Alamat: <br>
             <input type="text" name="alamat" th:value="${restoran.alamat}"/>
-            </br>
+            <br>
 
             Nomor Telepon: <br>
             <input type="number" name="nomorTelepon" th:value="${restoran.nomorTelepon}"/>
-            </br>
+            <br>
 
+            <br><br>
             <button type="submit"> Submit </button>
 
 

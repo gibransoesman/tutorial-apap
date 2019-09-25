@@ -8,7 +8,7 @@ import apap.tutorial.gopud.model.MenuModel;
 import apap.tutorial.gopud.model.RestoranModel;
 
 @Service
-public class RestoranInMemoryService implements RestoranService, MenuService {
+public class RestoranInMemoryService implements RestoranService {
     private List<RestoranModel> listRestoran;
     private List<MenuModel> listMenu;
 
@@ -27,7 +27,19 @@ public class RestoranInMemoryService implements RestoranService, MenuService {
          return listRestoran;
      }
 
-    // @Override
+    @Override
+    public Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran) {
+        // nanti bikin
+        return null;
+    }
+
+    @Override
+    public RestoranModel changeRestoran(RestoranModel restoranModel) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+        // @Override
     // public RestoranModel getRestoranByIdRestoran(String idRestoran) {
     //     for (RestoranModel count : listRestoran) {
     //         if (count.getIdRestoran().equals(idRestoran)) {
@@ -68,32 +80,5 @@ public class RestoranInMemoryService implements RestoranService, MenuService {
     //     }
     //     return null;
     // }
-
-    @Override
-    public void addMenu(MenuModel menu) {
-        listMenu.add(menu);
-    }
-
-    @Override
-    public List<MenuModel> findAllMenuByIdRestoran(long idRestoran) {
-        for (RestoranModel count : listRestoran){
-            if (count.getIdRestoran().equals(idRestoran)){
-                return count.getListMenu();
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran) {
-        // nanti bikin
-        return null;
-    }
-
-    @Override
-    public RestoranModel changeRestoran(RestoranModel restoranModel) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }
 

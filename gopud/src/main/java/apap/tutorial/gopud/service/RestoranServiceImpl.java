@@ -13,7 +13,6 @@ import apap.tutorial.gopud.repository.RestoranDb;
 
 @Service
 @Transactional
-
 public class RestoranServiceImpl implements RestoranService{
     @Autowired
     private RestoranDb restoranDb;
@@ -26,8 +25,7 @@ public class RestoranServiceImpl implements RestoranService{
 
     @Override
     public Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran) {
-        // nanti bikin
-        return null;
+        return restoranDb.findByIdRestoran(idRestoran);
     }
 
     @Override
