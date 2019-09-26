@@ -16,3 +16,26 @@ pertanyaan 4
     yang akan ditampilkan adalah semua restoran yang terdaftar.
 
     ![SS dari viewall](https://ibb.co/dJdtNnJ)
+
+
+# Tutorial APAP 3
+## Authors
+* **Gibran Gifari Soesman** - *1606876462* - *B*
+
+Pertanyaan 1
+untuk menemukan restoran berdasarkan id restoran tersebut
+
+Pertanyaan 2
+restoran form page akan mengeluarkan form dan restoransubmit akan keluar ketika input berhasil disimpan di db.
+
+pertanyaan 3
+untuk bisa link dengan db
+
+pertanyaan 4
+di bagian OneToMany pada restoranmodel dan menumodel
+
+pertanyaan 5
+untuk menjelaskan type db dan foreign key dapa menumodel
+
+
+     

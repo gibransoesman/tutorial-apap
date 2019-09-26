@@ -1,5 +1,6 @@
 package apap.tutorial.gopud.controller;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -53,7 +54,6 @@ public class RestoranController{
 
     @RequestMapping( value = "/restoran/change/{idRestoran}", method = RequestMethod.GET)
     public String changeRestoranFormPage (@PathVariable Long idRestoran, Model model){
-
         RestoranModel existingRestoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
         model.addAttribute("restoran", existingRestoran);
         return "form-change-restoran";
@@ -68,10 +68,25 @@ public class RestoranController{
     @RequestMapping("/restoran/view-all")
     public String viewall (Model model){
         List<RestoranModel> listRestoran = restoranService.getRestoranList();
+        if (listRestoran.size() > 0) {
+            Collections.sort(listRestoran, new Comparator<RestoranModel>() {
+                @Override
+                public int compare(final RestoranModel object1, final RestoranModel object2) {
+                    return object1.getNama().compareTo(object2.getNama());
+                }
+            });
+          }
         model.addAttribute("restoList", listRestoran);
         return "viewall-restoran";
     }
-   
+
+    
+    @RequestMapping("/restoran/delete/{idRestoran}")
+    public String delete(@PathVariable(value = "idRestoran") Long idRestoran, Model model){
+        RestoranModel restoran = restoranService.deleteRestoranByIdRestoran(idRestoran);
+        model.addAttribute("resto", restoran);
+        return "delete-restoran";
+}
 
 
 }
@@ -109,13 +124,6 @@ public class RestoranController{
 //     RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
 //     model.addAttribute("resto", restoran);
 //     return "view-restoran";
-// }
-
-// @RequestMapping("/restoran/delete/id/{idRestoran}")
-// public String delete(@PathVariable(value = "idRestoran") String idRestoran, Model model){
-//     RestoranModel restoran = restoranService.deleteRestoranByIdRestoran(idRestoran);
-//     model.addAttribute("resto", restoran);
-//     return "delete-restoran";
 // }
 
 // @RequestMapping("/restoran/view/id-restoran/{idRestoran}")

@@ -39,6 +39,12 @@ public class RestoranInMemoryService implements RestoranService {
         return null;
     }
 
+        @Override
+
+    public RestoranModel deleteRestoranByIdRestoran(Long idRestoran) {
+        return null;
+    }
+
         // @Override
     // public RestoranModel getRestoranByIdRestoran(String idRestoran) {
     //     for (RestoranModel count : listRestoran) {
@@ -70,15 +76,5 @@ public class RestoranInMemoryService implements RestoranService {
     //     return null;
     // }
 
-    // @Override
-    // public RestoranModel deleteRestoranByIdRestoran(String idRestoran) {
-    //     for (RestoranModel count : listRestoran) {
-    //         if (count.getIdRestoran().equals(idRestoran)) {
-    //             listRestoran.remove(count);
-    //             return count;
-    //         }
-    //     }
-    //     return null;
-    // }
 }
 

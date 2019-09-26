@@ -1,5 +1,6 @@
 package apap.tutorial.gopud.service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ import apap.tutorial.gopud.repository.RestoranDb;
 public class RestoranServiceImpl implements RestoranService{
     @Autowired
     private RestoranDb restoranDb;
+
 
     @Override
     public void addRestoran(RestoranModel restoran) { restoranDb.save(restoran);}
@@ -41,5 +43,11 @@ public class RestoranServiceImpl implements RestoranService{
         } catch (NullPointerException nullException){
             return null;
         }
+    }
+
+    @Override
+    public RestoranModel deleteRestoranByIdRestoran(Long idRestoran) {
+        restoranDb.deleteById(idRestoran);;
+        return null;
     }
 }

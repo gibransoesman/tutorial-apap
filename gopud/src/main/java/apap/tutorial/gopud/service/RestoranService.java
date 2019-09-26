@@ -12,6 +12,7 @@ public interface RestoranService{
         List<RestoranModel> getRestoranList();
         Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran);
         RestoranModel changeRestoran(RestoranModel restoranModel);
+        RestoranModel deleteRestoranByIdRestoran(Long idRestoran);
         
 }
 // public interface RestoranService {
