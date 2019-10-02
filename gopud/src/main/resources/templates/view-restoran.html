@@ -3,9 +3,12 @@
 <html xmlns:th="http://thymeLeaf.org">
     <head>
         <title>View Restoran</title>
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <object th:includer="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:includer="fragments/fragment :: js" th:remove="tag"></object>
     </head>
     <body>
-
+            <nav th:replace="fragments/fragment :: navbar" ></nav>
         <h2>
             Daftar Menu: 
         </h2>
@@ -19,7 +22,7 @@
                     <th>Durasi Penyajian</th>
                 </tr>
             </thead>
-            <tbody>
+            <!-- <tbody>
                 <tr th:each="menu, iterationStatus : *{menuList}">
                     <td th:text="${iterationStatus.count}"></td>
                     <td th:text="${menu.id}"></td>
@@ -28,7 +31,7 @@
                     <td th:text="${menu.deskripsi}"></td>
                     <td th:text="${menu.durasiMasak}"></td>
                 </tr>
-            </tbody>
+            </tbody> -->
 
             <tbody>
                 <tr th:each="menu, iterationStatus : *{menuList}"
@@ -37,7 +40,7 @@
                     <td th:text="${menu.id}"></td>
                     <td th:text="${menu.nama}"></td>
                     <td th:if="${menu.harga} >= 10000">Diatas 10k</td>
-                    <td th:unless="${menu.harga} >= 10000">Diatas 10k</td>
+                    <td th:unless="${menu.harga} >= 10000">Dibawah 10k</td>
                     <td th:text="${menu.deskripsi}"></td>
                     <td th:text="${menu.durasiMasak}"></td>
                 </tr>

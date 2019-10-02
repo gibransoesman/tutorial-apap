@@ -3,9 +3,13 @@
 <html xmlns:th="http://thymeLeaf.org">
     <head>
         <title>Add Restoran</title>
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <object th:includer="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:includer="fragments/fragment :: js" th:remove="tag"></object>
     </head>
 
     <body>
+            <nav th:replace="fragments/fragment :: navbar" ></nav>
         <h3>Tambah Restoran</h3>
         <form th:action="@{/restoran/add}" th:object="${restoran}" method="POST">
             Nama: <br>
