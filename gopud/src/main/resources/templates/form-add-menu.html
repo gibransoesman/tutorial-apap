@@ -3,9 +3,12 @@
 <html xmlns:th="http://thymeLeaf.org">
     <head>
         <title>Add Menu</title>
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <object th:includer="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:includer="fragments/fragment :: js" th:remove="tag"></object>
     </head>
-
     <body>
+        <nav th:replace="fragments/fragment :: navbar" ></nav>
         <h3>Tambah Produk</h3>
         <form th:action="@{/menu/add}" th:object="${menu}" method="POST">
             <input type="hidden" th:field="*{restoran}" />
@@ -22,7 +25,7 @@
             <input type="number" name="harga" />
             <br>
 
-            durasiMasak: <br>
+            Durasi Masak: <br>
             <input type="number" name="durasiMasak" />
             <br>
 

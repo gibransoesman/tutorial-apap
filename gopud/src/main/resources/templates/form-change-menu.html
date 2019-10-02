@@ -2,31 +2,29 @@
 
 <html xmlns:th="http://thymeLeaf.org">
     <head>
-        <title>change Menu</title>
+        <title>Change Menu</title>
+        <object th:includer="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:includer="fragments/fragment :: js" th:remove="tag"></object>
     </head>
-
     <body>
-        <h3>ubah Produk</h3>
-        <form th:action="@{/menu/change/}+${resto.idRestoran}+@{/}+${menu.id}" th:object="${menu}" method="POST">
-            <input type="hidden" th:field="*{idRestoran}" />
-
-            Nama: <br>
-            <input type="text" name="nama"/>
+        <nav th:replace="fragments/fragment :: navbar" ></nav>
+        <form th:action="@{/menu/change/{menuId}(menuId=${menu.id})}" th:object="${menu}" method="POST">
+            <input type="hidden" th:field="${menu.id}" />
+            Nama Menu: <br>
+            <input type="text" name="nama" th:value="${menu.nama}" />
             <br>
-
-            Deskripsi: <br>
-            <input type="text" name="deskripsi" />
-            <br>
-
             Harga: <br>
-            <input type="number" name="harga" />
+            <input type="number" name="harga" th:value="${menu.harga}" />
             <br>
-
-            durasiMasak: <br>
-            <input type="number" name="durasiMasak" />
+            Durasi Masak (dalam menit): <br>
+            <input type="number" name="durasiMasak" th:value="${menu.durasiMasak}" />
             <br>
-
-            <button type="submit"> Submit </button>
+            Deskripsi: <br>
+            <input type="text" name="deskripsi" th:value="${menu.deskripsi}" />
+            <br>
+        
+            <br><br>
+            <button type="submit">Submit</button>
         </form>
     </body>
 </html>

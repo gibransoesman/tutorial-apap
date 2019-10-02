@@ -28,7 +28,7 @@ public class MenuController {
     @RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.GET)
     private String addProductFormPage(@PathVariable(value = "idRestoran") Long idRestoran, Model model) {
         MenuModel menu = new MenuModel();
-        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
+        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
         menu.setRestoran(restoran);
         model.addAttribute("menu", menu);
         return "form-add-menu";
@@ -41,25 +41,25 @@ public class MenuController {
         return "add-menu";
     }
 
-    @RequestMapping(value = "/menu/change/{idRestoran}/{id}", method = RequestMethod.GET)
-    public String changeMenuFormPage(@PathVariable Long idRestoran, Long id, Model model) {;
-        List<MenuModel> existingMenu = menuService.findAllMenuByIdRestoran(idRestoran);
+    @RequestMapping(value = "/menu/change/{idMenu}", method = RequestMethod.GET)
+    public String changeMenuFormPage(@PathVariable Long idRestoran, Long idMenu, Model model) {;
+        MenuModel existingMenu = menuService.findById(idMenu);
         model.addAttribute("menu", existingMenu);
         return "form-change-menu";
     }
 
-    @RequestMapping( value = "/menu/change/{idRestoran}/{id}", method = RequestMethod.POST)
-    public String changeMenuFormSumbit (@PathVariable Long idRestoran, Long id, @ModelAttribute MenuModel menu, Model model){
-        MenuModel newMenuData = menuService.changeMenu(menu);
-        newMenuData.setId(idRestoran);
+    @RequestMapping( value = "/menu/change/{idMenu}", method = RequestMethod.POST)
+    public String changeMenuFormSumbit (@PathVariable Long idRestoran, Long idMenu, @ModelAttribute MenuModel menu, Model model){
+        MenuModel newMenuData = menuService.changeRestoran(menu);
         model.addAttribute("menu", newMenuData);
         return "change-menu";
     }
 
-    @RequestMapping("/menu/delete/{id}")
-    public String delete(@PathVariable(value = "id") Long id, Model model){
-        MenuModel menu = menuService.deleteMenuById(id);
-        model.addAttribute("menu", menu);
+    @RequestMapping(value= "/menu/delete", method=RequestMethod.POST)
+    public String delete(@ModelAttribute RestoranModel restoran, Model model){
+        for (MenuModel menu : restoran.getListMenu()){
+            menuService.deleteMenu(menu);
+        }
         return "delete-menu";
 }
 }

@@ -3,9 +3,12 @@
 <html xmlns:th="http://thymeLeaf.org">
     <head>
         <title>Change Data Restoran</title>
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <object th:includer="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:includer="fragments/fragment :: js" th:remove="tag"></object>
     </head>
-
     <body>
+        <nav th:replace="fragments/fragment :: navbar" ></nav>
         <h2>Change Data Restoran</h2>
         <form th:action="@{/restoran/change/{idRestoran}(idRestoran=${restoran.idRestoran})}" th:object="${restoran}" method="POST">
             <input type="hidden" th:field="${restoran.idRestoran}" />

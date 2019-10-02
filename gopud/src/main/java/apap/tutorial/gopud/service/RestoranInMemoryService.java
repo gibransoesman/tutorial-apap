@@ -28,7 +28,7 @@ public class RestoranInMemoryService implements RestoranService {
      }
 
     @Override
-    public Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran) {
+    public RestoranModel getRestoranByIdRestoran(Long idRestoran) {
         // nanti bikin
         return null;
     }
@@ -39,10 +39,11 @@ public class RestoranInMemoryService implements RestoranService {
         return null;
     }
 
-        @Override
 
-    public RestoranModel deleteRestoranByIdRestoran(Long idRestoran) {
-        return null;
+    @Override
+    public void deleteRestoran(Long idRestoran) {
+        // TODO Auto-generated method stub
+
     }
 
         // @Override
