@@ -26,7 +26,7 @@
                     <td><input th:field="*{listMenu[__${stat.index}__].nama}" type="text" name="nama"></td>
                     <td><input th:field="*{listMenu[__${stat.index}__].deskripsi}" type="text" name="deskripsi"></td>
                     <td><input th:field="*{listMenu[__${stat.index}__].harga}" type="number" name="harga"></td>
-                    <td><input th:field="*{listMenu[__${stat.index}__].durasiMasak}" type="text" name="durasiMasak"></td>
+                    <td><input th:field="*{listMenu[__${stat.index}__].durasiMasak}" type="number" name="durasiMasak"></td>
                     <td>
                         <button class="btn btn-danger" name="deleteRow" type="submit" th:value="${stat.index}">Hapus</button>
                     </td>
