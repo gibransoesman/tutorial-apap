@@ -37,5 +37,21 @@ di bagian OneToMany pada restoranmodel dan menumodel
 pertanyaan 5
 untuk menjelaskan type db dan foreign key dapa menumodel
 
+# Tutorial APAP 4
+Pertanyaan 1
+Yang dilakukan pada soal nomor 2 adalah mengubah text dengan cara dinamis. cara saya menyelesaikan tugasnya adalah dengan membuat th:text pada tag yang ingin dinamis, lalu membuat addAtribute di setiap class controller yang mereturn halaman.
+
+Pertanyaan 2
+Yang dilakukan pada soal nomor 2 adalah membuat table dinamis. cara saya menyelesaikan tugasnya adalah membuat class dicontroller untuk membuat fungsi addRow, deleteRow dan sumbit dan juga mengubah pada class addmenu dengan membuat arrayList, nantinya yang akan disimpan setiap diinput ada pada arrayList. Lalu membuat tampilan html seperti tutorial, tetapi sedikit berbeda karena menggunakan form.
+
+Pertanyaan 3
+include akan memasukkan kedalam tag, kalau replace mengganti tag
+
+Pertanyaan 4
+Mendeklarasi objek untuk form data
+
+
+
+
 
      

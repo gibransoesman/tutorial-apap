@@ -10,26 +10,46 @@
     <body>
         <nav th:replace="fragments/fragment :: navbar" ></nav>
         <h3>Tambah Produk</h3>
-        <form th:action="@{/menu/add}" th:object="${menu}" method="POST">
-            <input type="hidden" th:field="*{restoran}" />
+        <form th:action="@{/menu/add/} + ${resto.idRestoran}" th:object="${resto}" method="POST">
+            <input type="hidden" th:field="*{idRestoran}" />
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Deskripsi</th>
+                        <th>Harga</th>
+                        <th>Durasi Masak</th>
+                        <th><button type="submit" name="addRow" class="btn btn-sm btn-primary">Add Row</button></th>
+                    </tr>
+                </thead>
+                <tr th:each="menu, stat : *{listMenu}">
+                    <td><input th:field="*{listMenu[__${stat.index}__].nama}" type="text" name="nama"></td>
+                    <td><input th:field="*{listMenu[__${stat.index}__].deskripsi}" type="text" name="deskripsi"></td>
+                    <td><input th:field="*{listMenu[__${stat.index}__].harga}" type="number" name="harga"></td>
+                    <td><input th:field="*{listMenu[__${stat.index}__].durasiMasak}" type="text" name="durasiMasak"></td>
+                    <td>
+                        <button class="btn btn-danger" name="deleteRow" type="submit" th:value="${stat.index}">Hapus</button>
+                    </td>
+                </tr>
 
-            Nama: <br>
-            <input type="text" name="nama"/>
-            <br>
+            </table>
+            <button type="submit" class="btn btn-sm btn-primary" name="submit">Submit</button>
 
-            Deskripsi: <br>
-            <input type="text" name="deskripsi" />
-            <br>
-
-            Harga: <br>
-            <input type="number" name="harga" />
-            <br>
-
-            Durasi Masak: <br>
-            <input type="number" name="durasiMasak" />
-            <br>
-
-            <button type="submit"> Submit </button>
         </form>
     </body>
 </html>
+
+<!-- <script>
+    document.getElementById("namaTitle").innerHTML = "Add Menu";
+    var count = 1;
+    var table ='<tr id="'+count+'"><td><input type="text" name="nama"></td><td><input type="text" name="deskripsi"></td><td><input type="number" name="harga"></td><td><input type="number" name="durasiMasak"></td><td><button type="button" onclick="deleteTable('+count+')" class="btn btn-sm btn-danger">Hapus</button></td></tr>'
+    function tambahTable(){
+        document.getElementById("myTable").innerHTML += table;
+        count++;
+    }
+
+    function deleteTable(x){
+        document.getElementById(x).innerHTML = "";
+        count = count-1;
+    }
+</script> -->

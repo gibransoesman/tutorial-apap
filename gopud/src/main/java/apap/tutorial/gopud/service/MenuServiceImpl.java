@@ -38,7 +38,6 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public MenuModel changeRestoran(MenuModel menu) {
         try {
-            // mengambil object restoran yang ingin diubah
             MenuModel targetMenu = findById(menu.getId());
             targetMenu.setNama(menu.getNama());
             targetMenu.setHarga(menu.getHarga());
