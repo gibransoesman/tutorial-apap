@@ -38,6 +38,9 @@ pertanyaan 5
 untuk menjelaskan type db dan foreign key dapa menumodel
 
 # Tutorial APAP 4
+## Authors
+* **Gibran Gifari Soesman** - *1606876462* - *B*
+
 Pertanyaan 1
 Yang dilakukan pada soal nomor 2 adalah mengubah text dengan cara dinamis. cara saya menyelesaikan tugasnya adalah dengan membuat th:text pada tag yang ingin dinamis, lalu membuat addAtribute di setiap class controller yang mereturn halaman.
 
