@@ -1,11 +1,15 @@
 package apap.tutorial.gopud.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,40 +30,81 @@ public class MenuController {
     RestoranService restoranService;
 
     @RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.GET)
-    private String addProductFormPage(@PathVariable(value = "idRestoran") Long idRestoran, Model model) {
+    private String addMenuFormPage(@PathVariable(value = "idRestoran") Long idRestoran, Model model) {
         MenuModel menu = new MenuModel();
-        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
+        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
+        ArrayList<MenuModel> listMenu = new ArrayList<>();
+        listMenu.add(menu);
+        restoran.setListMenu(listMenu);
+
         menu.setRestoran(restoran);
-        model.addAttribute("menu", menu);
+        model.addAttribute("resto", restoran);
+        model.addAttribute("listMenu", menu);
+        model.addAttribute("title", "Tambah Menu");
         return "form-add-menu";
     }
 
-    @RequestMapping(value = "menu/add", method = RequestMethod.POST)
-    private String addProductSubmit(@ModelAttribute MenuModel menu, Model model) {
-        menuService.addMenu(menu);
-        model.addAttribute("nama", menu.getNama());
+    @RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.POST, params={"addRow"})
+    private String addRow(@ModelAttribute RestoranModel restoran, BindingResult bindingResult, Model model) {
+        if (restoran.getListMenu() == null){
+            restoran.setListMenu(new ArrayList<MenuModel>());
+        }
+
+        restoran.getListMenu().add(new MenuModel());
+        model.addAttribute("resto", restoran);
+        model.addAttribute("title", "Tambah Menu");
+        return "form-add-menu";
+    }
+
+    @RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.POST, params={"deleteRow"})
+    private String deleteRow(@ModelAttribute RestoranModel restoran, BindingResult bindingResult, Model model, HttpServletRequest req) {
+        Integer rowId = Integer.valueOf(req.getParameter("deleteRow"));
+        restoran.getListMenu().remove(rowId.intValue()); 
+        model.addAttribute("resto", restoran);
+        model.addAttribute("title", "Tambah Menu");
+        return "form-add-menu";
+    }
+
+    @RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.POST, params={"submit"})
+    private String sumbitMenu(@ModelAttribute RestoranModel restoran, Model model) {
+        RestoranModel resto = restoranService.getRestoranByIdRestoran(restoran.getIdRestoran());
+        for (MenuModel menu : restoran.getListMenu()){
+            menu.setRestoran(resto);
+            menuService.addMenu(menu);
+        }
+        model.addAttribute("title", "Tambah Menu");
         return "add-menu";
     }
 
-    @RequestMapping(value = "/menu/change/{idRestoran}/{id}", method = RequestMethod.GET)
-    public String changeMenuFormPage(@PathVariable Long idRestoran, Long id, Model model) {;
-        List<MenuModel> existingMenu = menuService.findAllMenuByIdRestoran(idRestoran);
+    // @RequestMapping(value = "menu/add", method = RequestMethod.POST)
+    // private String addProductSubmit(@ModelAttribute MenuModel menu, Model model) {
+    //     menuService.addMenu(menu);
+    //     model.addAttribute("nama", menu.getNama());
+    //     return "add-menu";
+    // }
+    
+    @RequestMapping(value = "/menu/change/{idMenu}", method = RequestMethod.GET)
+    public String changeMenuFormPage(@PathVariable Long idRestoran, Long idMenu, Model model) {;
+        MenuModel existingMenu = menuService.findById(idMenu);
         model.addAttribute("menu", existingMenu);
+        model.addAttribute("title", "Ubah Menu");
         return "form-change-menu";
     }
 
-    @RequestMapping( value = "/menu/change/{idRestoran}/{id}", method = RequestMethod.POST)
-    public String changeMenuFormSumbit (@PathVariable Long idRestoran, Long id, @ModelAttribute MenuModel menu, Model model){
-        MenuModel newMenuData = menuService.changeMenu(menu);
-        newMenuData.setId(idRestoran);
+    @RequestMapping( value = "/menu/change/{idMenu}", method = RequestMethod.POST)
+    public String changeMenuFormSumbit (@PathVariable Long idRestoran, Long idMenu, @ModelAttribute MenuModel menu, Model model){
+        MenuModel newMenuData = menuService.changeRestoran(menu);
         model.addAttribute("menu", newMenuData);
+        model.addAttribute("title", "Ubah Menu");
         return "change-menu";
     }
 
-    @RequestMapping("/menu/delete/{id}")
-    public String delete(@PathVariable(value = "id") Long id, Model model){
-        MenuModel menu = menuService.deleteMenuById(id);
-        model.addAttribute("menu", menu);
+    @RequestMapping(value= "/menu/delete", method=RequestMethod.POST)
+    public String delete(@ModelAttribute RestoranModel restoran, Model model){
+        for (MenuModel menu : restoran.getListMenu()){
+            menuService.deleteMenu(menu);
+        }
+        model.addAttribute("title", "Delete Menu");
         return "delete-menu";
 }
 }

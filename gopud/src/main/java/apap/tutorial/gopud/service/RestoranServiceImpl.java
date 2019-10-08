@@ -2,6 +2,7 @@ package apap.tutorial.gopud.service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -23,31 +24,40 @@ public class RestoranServiceImpl implements RestoranService{
     public void addRestoran(RestoranModel restoran) { restoranDb.save(restoran);}
 
     @Override
-    public List<RestoranModel> getRestoranList() { return restoranDb.findAll();}
+    public List<RestoranModel> getRestoranList() { return restoranDb.findAllByOrderByNamaAsc();}
 
     @Override
-    public Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran) {
-        return restoranDb.findByIdRestoran(idRestoran);
+    public RestoranModel getRestoranByIdRestoran(Long idRestoran) {
+        try{
+            Optional<RestoranModel> restoran = restoranDb.findByIdRestoran(idRestoran);
+            return restoran.get();
+        }catch (NoSuchElementException e) {
+            throw e;
+        }
     }
 
     @Override
     public RestoranModel changeRestoran(RestoranModel restoranModel){
-        RestoranModel targetRestoran = restoranDb.findById(restoranModel.getIdRestoran()).get();
-
         try{
+            RestoranModel targetRestoran = getRestoranByIdRestoran(restoranModel.getIdRestoran());
             targetRestoran.setNama(restoranModel.getNama());
             targetRestoran.setAlamat(restoranModel.getAlamat());
             targetRestoran.setNomorTelepon(restoranModel.getNomorTelepon());
             restoranDb.save(targetRestoran);
             return targetRestoran;
-        } catch (NullPointerException nullException){
-            return null;
+        } catch (NullPointerException nullException) {
+            throw nullException;
         }
     }
 
     @Override
-    public RestoranModel deleteRestoranByIdRestoran(Long idRestoran) {
-        restoranDb.deleteById(idRestoran);;
-        return null;
+    public void deleteRestoran(Long idRestoran) {
+        RestoranModel restoran = getRestoranByIdRestoran(idRestoran);
+        if(restoran.getListMenu().size()==0){
+            restoranDb.delete(restoran);
+        }else{
+            UnsupportedOperationException unsupportedOperationException = new UnsupportedOperationException();
+            throw unsupportedOperationException;
+        }
     }
 }

@@ -29,33 +29,40 @@ public class RestoranController{
     private MenuService menuService;
 
     @RequestMapping("/")
-    public String home() { return "home"; }
+    public String home(Model model) { 
+        model.addAttribute("title", "Home");
+        return "home"; 
+    }
 
     @RequestMapping( value = "/restoran/add", method = RequestMethod.GET)
     public String addRestoranFormPage (Model model) {
         RestoranModel newRestoran = new RestoranModel();
         model.addAttribute("restoran", newRestoran);
+        model.addAttribute("title", "Tambah Restoran");
         return "form-add-restoran";
     }
     @RequestMapping( value = "/restoran/add", method = RequestMethod.POST)
     public String addRestoranSubmit (@ModelAttribute RestoranModel restoran,Model model) {
         restoranService.addRestoran(restoran);
         model.addAttribute("namaResto", restoran.getNama());
+        model.addAttribute("title", "Tambah Restoran");
         return "add-restoran";
     }
     @RequestMapping( path = "/restoran/view", method = RequestMethod.GET)
     public String view (@RequestParam(value = "idRestoran") Long idRestoran, Model model){
-        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
-        model.addAttribute("resto", restoran);
+        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
         List<MenuModel> menuList = menuService.findAllMenuByIdRestoran(restoran.getIdRestoran());
-        model.addAttribute("menuList", menuList);
+        restoran.setListMenu(menuList);
+        model.addAttribute("resto", restoran);
+        model.addAttribute("title", "Daftar Restoran");
         return "view-restoran";
     }
 
     @RequestMapping( value = "/restoran/change/{idRestoran}", method = RequestMethod.GET)
     public String changeRestoranFormPage (@PathVariable Long idRestoran, Model model){
-        RestoranModel existingRestoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
+        RestoranModel existingRestoran = restoranService.getRestoranByIdRestoran(idRestoran);
         model.addAttribute("restoran", existingRestoran);
+        model.addAttribute("title", "Ubah Restoran");
         return "form-change-restoran";
     }
 
@@ -63,31 +70,24 @@ public class RestoranController{
     public String changeRestoranFormSumbit (@PathVariable Long idRestoran, @ModelAttribute RestoranModel restoran, Model model){
         RestoranModel newRestoranData = restoranService.changeRestoran(restoran);
         model.addAttribute("restoran", newRestoranData);
+        model.addAttribute("title", "Ubah Restoran");
         return "change-restoran";
     }
     @RequestMapping("/restoran/view-all")
     public String viewall (Model model){
         List<RestoranModel> listRestoran = restoranService.getRestoranList();
-        if (listRestoran.size() > 0) {
-            Collections.sort(listRestoran, new Comparator<RestoranModel>() {
-                @Override
-                public int compare(final RestoranModel object1, final RestoranModel object2) {
-                    return object1.getNama().compareTo(object2.getNama());
-                }
-            });
-          }
         model.addAttribute("restoList", listRestoran);
+        model.addAttribute("title", "Liat Semua Restoran");
         return "viewall-restoran";
     }
 
     
     @RequestMapping("/restoran/delete/{idRestoran}")
     public String delete(@PathVariable(value = "idRestoran") Long idRestoran, Model model){
-        RestoranModel restoran = restoranService.deleteRestoranByIdRestoran(idRestoran);
-        model.addAttribute("resto", restoran);
+        restoranService.deleteRestoran(idRestoran);
+        model.addAttribute("title", "Delete  Restoran");
         return "delete-restoran";
 }
-
 
 }
 
