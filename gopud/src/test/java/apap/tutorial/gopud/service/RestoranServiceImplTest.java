@@ -52,7 +52,7 @@ public class RestoranServiceImplTest {
         returnedData.setIdRestoran((long)1);
         returnedData.setNomorTelepon(14022);
 
-        when(restoranService.getRestoranByIdRestoran(1L)).thenReturn(Optional.of(returnedData));
+        when(restoranService.getRestoranByIdRestoran(3L)).thenReturn(Optional.of(returnedData));
         
         Optional<RestoranModel> dataFromServiceCall = restoranService.getRestoranByIdRestoran(1L);
 
