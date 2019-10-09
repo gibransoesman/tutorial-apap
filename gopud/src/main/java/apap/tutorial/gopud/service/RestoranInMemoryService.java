@@ -28,7 +28,7 @@ public class RestoranInMemoryService implements RestoranService {
      }
 
     @Override
-    public RestoranModel getRestoranByIdRestoran(Long idRestoran) {
+    public Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran) {
         // nanti bikin
         return null;
     }

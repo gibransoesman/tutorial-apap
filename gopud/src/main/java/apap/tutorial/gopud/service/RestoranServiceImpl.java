@@ -27,10 +27,10 @@ public class RestoranServiceImpl implements RestoranService{
     public List<RestoranModel> getRestoranList() { return restoranDb.findAllByOrderByNamaAsc();}
 
     @Override
-    public RestoranModel getRestoranByIdRestoran(Long idRestoran) {
+    public Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran) {
         try{
             Optional<RestoranModel> restoran = restoranDb.findByIdRestoran(idRestoran);
-            return restoran.get();
+            return restoranDb.findByIdRestoran(idRestoran);
         }catch (NoSuchElementException e) {
             throw e;
         }
@@ -39,7 +39,7 @@ public class RestoranServiceImpl implements RestoranService{
     @Override
     public RestoranModel changeRestoran(RestoranModel restoranModel){
         try{
-            RestoranModel targetRestoran = getRestoranByIdRestoran(restoranModel.getIdRestoran());
+            RestoranModel targetRestoran = restoranDb.findById(restoranModel.getIdRestoran()).get();
             targetRestoran.setNama(restoranModel.getNama());
             targetRestoran.setAlamat(restoranModel.getAlamat());
             targetRestoran.setNomorTelepon(restoranModel.getNomorTelepon());
@@ -52,7 +52,7 @@ public class RestoranServiceImpl implements RestoranService{
 
     @Override
     public void deleteRestoran(Long idRestoran) {
-        RestoranModel restoran = getRestoranByIdRestoran(idRestoran);
+        RestoranModel restoran = getRestoranByIdRestoran(idRestoran).get();
         if(restoran.getListMenu().size()==0){
             restoranDb.delete(restoran);
         }else{

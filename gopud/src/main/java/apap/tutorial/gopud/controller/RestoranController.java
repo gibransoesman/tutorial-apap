@@ -50,7 +50,7 @@ public class RestoranController{
     }
     @RequestMapping( path = "/restoran/view", method = RequestMethod.GET)
     public String view (@RequestParam(value = "idRestoran") Long idRestoran, Model model){
-        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
+        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
         List<MenuModel> menuList = menuService.findAllMenuByIdRestoran(restoran.getIdRestoran());
         restoran.setListMenu(menuList);
         model.addAttribute("resto", restoran);
@@ -60,7 +60,7 @@ public class RestoranController{
 
     @RequestMapping( value = "/restoran/change/{idRestoran}", method = RequestMethod.GET)
     public String changeRestoranFormPage (@PathVariable Long idRestoran, Model model){
-        RestoranModel existingRestoran = restoranService.getRestoranByIdRestoran(idRestoran);
+        RestoranModel existingRestoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
         model.addAttribute("restoran", existingRestoran);
         model.addAttribute("title", "Ubah Restoran");
         return "form-change-restoran";

@@ -10,7 +10,7 @@ import apap.tutorial.gopud.model.RestoranModel;
 public interface RestoranService{
         void addRestoran(RestoranModel restoran);
         List<RestoranModel> getRestoranList();
-        RestoranModel getRestoranByIdRestoran(Long idRestoran);
+        Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran);
         RestoranModel changeRestoran(RestoranModel restoranModel);
         void deleteRestoran(Long idRestoran);
         

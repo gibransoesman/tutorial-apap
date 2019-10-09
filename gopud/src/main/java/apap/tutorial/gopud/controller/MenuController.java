@@ -32,7 +32,7 @@ public class MenuController {
     @RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.GET)
     private String addMenuFormPage(@PathVariable(value = "idRestoran") Long idRestoran, Model model) {
         MenuModel menu = new MenuModel();
-        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
+        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
         ArrayList<MenuModel> listMenu = new ArrayList<>();
         listMenu.add(menu);
         restoran.setListMenu(listMenu);
@@ -67,7 +67,7 @@ public class MenuController {
 
     @RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.POST, params={"submit"})
     private String sumbitMenu(@ModelAttribute RestoranModel restoran, Model model) {
-        RestoranModel resto = restoranService.getRestoranByIdRestoran(restoran.getIdRestoran());
+        RestoranModel resto = restoranService.getRestoranByIdRestoran(restoran.getIdRestoran()).get();
         for (MenuModel menu : restoran.getListMenu()){
             menu.setRestoran(resto);
             menuService.addMenu(menu);
