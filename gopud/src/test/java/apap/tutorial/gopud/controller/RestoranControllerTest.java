@@ -66,15 +66,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(content().string(Matchers.containsString("Daftar Seluruh Restoran")))
         .andExpect(content().string(Matchers.containsString("ID Restoran")))
-        .andExpect(model().attribute("restoranList", hasSize(3)))
-        .andExpect(model().attribute("restoranList", hasItem(
-        allOf( hasProperty("idRestoran", is(1L)), hasProperty("nama", is("dummy 1")), hasProperty("alamat", is("alamat 1")) ) ))) .andExpect(model().attribute("restoranList", hasItem( allOf(
+        .andExpect(model().attribute("restoList", hasSize(3)))
+        .andExpect(model().attribute("restoList", hasItem(
+        allOf( hasProperty("idRestoran", is(1L)), hasProperty("nama", is("dummy 1")), hasProperty("alamat", is("alamat 1")) ) ))) .andExpect(model().attribute("restoList", hasItem( allOf(
         hasProperty("idRestoran", is(2L)),
         hasProperty("nama", is("dummy 2")),
         hasProperty("alamat", is("alamat 2"))
         )
         )))
-        .andExpect(model().attribute("restoranList", hasItem(
+        .andExpect(model().attribute("restoList", hasItem(
         allOf(
         hasProperty("idRestoran", is(3L)),
         hasProperty("nama", is("dummy 3")),

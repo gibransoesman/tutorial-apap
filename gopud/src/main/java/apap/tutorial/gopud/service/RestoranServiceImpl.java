@@ -28,12 +28,7 @@ public class RestoranServiceImpl implements RestoranService{
 
     @Override
     public Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran) {
-        try{
-            Optional<RestoranModel> restoran = restoranDb.findByIdRestoran(idRestoran);
-            return restoranDb.findByIdRestoran(idRestoran);
-        }catch (NoSuchElementException e) {
-            throw e;
-        }
+        return restoranDb.findByIdRestoran(idRestoran);
     }
 
     @Override

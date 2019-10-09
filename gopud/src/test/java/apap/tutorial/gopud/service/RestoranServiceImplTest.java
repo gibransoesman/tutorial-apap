@@ -52,14 +52,15 @@ public class RestoranServiceImplTest {
         returnedData.setIdRestoran((long)1);
         returnedData.setNomorTelepon(14022);
 
-        when(restoranService.getRestoranByIdRestoran(3L)).thenReturn(Optional.of(returnedData));
+        when(restoranService.getRestoranByIdRestoran(1L)).thenReturn(Optional.of(returnedData));
         
         Optional<RestoranModel> dataFromServiceCall = restoranService.getRestoranByIdRestoran(1L);
 
         verify(restoranDb, times(1)).findByIdRestoran(1L);
         assertTrue(dataFromServiceCall.isPresent());
-        
+
         RestoranModel dataFromOptional = dataFromServiceCall.get();
+
         assertEquals("kaefci", dataFromOptional.getNama());
         assertEquals("TB Simatupang", dataFromOptional.getAlamat());
         assertEquals(Long.valueOf(1), dataFromOptional.getIdRestoran());
