@@ -15,20 +15,19 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(RestoranController.class)
-    public class RestoranControllerTest {
+public class RestoranControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
@@ -99,6 +98,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         .andExpect(model().attribute("namaResto", is(nama)));
         }
 
+        @Test
+        public void whenViewRestoranAccessItShouldShowTheRestoranData() throws Exception {
+            RestoranModel restoran = generateDummyRestoranModel(1);
+            when(restoranService
+                    .getRestoranByIdRestoran((long) 1))
+                    .thenReturn(Optional.of(restoran));
+            mockMvc.perform(get("/restoran/view?idRestoran=1"))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(content().string(Matchers.containsString("Informasi Restoran")))
+                    .andExpect(content().string(Matchers.containsString("ID Restoran")))
+                    .andExpect(model().attribute("resto",
+                            allOf(
+                                    hasProperty("idRestoran", is((long) 1)),
+                                    hasProperty("nama", is("namaRestoran")),
+                                    hasProperty("alamat", is("alamatRestoran"))
+                            )
+                    ));
+            verify(restoranService, times(1)).getRestoranByIdRestoran((long) 1);
+        }
+    
     
 
 }

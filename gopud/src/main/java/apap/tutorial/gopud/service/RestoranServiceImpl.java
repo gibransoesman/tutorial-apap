@@ -44,13 +44,7 @@ public class RestoranServiceImpl implements RestoranService{
     }
 
     @Override
-    public void deleteRestoran(Long idRestoran) {
-        RestoranModel restoran = getRestoranByIdRestoran(idRestoran).get();
-        if(restoran.getListMenu().size()==0){
-            restoranDb.delete(restoran);
-        }else{
-            UnsupportedOperationException unsupportedOperationException = new UnsupportedOperationException();
-            throw unsupportedOperationException;
-        }
+    public Long deleteRestoran(Long idRestoran) {
+        return restoranDb.deleteByIdRestoran(idRestoran);
     }
 }

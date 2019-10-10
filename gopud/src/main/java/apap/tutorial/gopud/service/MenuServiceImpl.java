@@ -26,14 +26,18 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public MenuModel findMenuById(Long idMenu) {
-        Optional<MenuModel> menu = menuDb.findById(idMenu);
-        return menu.get();
+    public Optional<MenuModel> findMenuById(Long idMenu) {
+        return menuDb.findById(idMenu);
+    }
+
+    @Override
+    public List<MenuModel> getListMenuOrderByHargaAsc(long idRestoran) {
+        return menuDb.findByRestoranIdRestoranOrderByHarga(idRestoran);
     }
 
     @Override
     public MenuModel changeMenu(MenuModel menu) {
-        MenuModel targetMenu = findMenuById(menu.getId());
+        MenuModel targetMenu = menuDb.findById(menu.getId()).get();
         targetMenu.setNama(menu.getNama());
         targetMenu.setHarga(menu.getHarga());
         targetMenu.setDurasiMasak(menu.getDurasiMasak());
@@ -43,8 +47,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public void deleteMenu(MenuModel menu) {
-        menuDb.delete(menu);
-
+    public long deleteMenu(Long idMenu) {
+        return menuDb.deleteByIdMenu(idMenu);
     }
 }

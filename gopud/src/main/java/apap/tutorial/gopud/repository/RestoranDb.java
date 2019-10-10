@@ -11,5 +11,6 @@ import java.util.Optional;
 @Repository
 public interface RestoranDb extends JpaRepository<RestoranModel, Long> {
     Optional<RestoranModel> findByIdRestoran(Long idRestoran);
+    long deleteByIdRestoran(Long idRestoran);
     List<RestoranModel> findAllByOrderByNamaAsc();
 }

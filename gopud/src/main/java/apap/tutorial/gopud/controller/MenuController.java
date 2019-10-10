@@ -2,6 +2,7 @@ package apap.tutorial.gopud.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -84,9 +85,16 @@ public class MenuController {
     // }
     
     @RequestMapping(value = "/menu/change/{idMenu}", method = RequestMethod.GET)
-    public String changeMenuFormPage(@PathVariable Long idRestoran, Long idMenu, Model model) {;
-        MenuModel existingMenu = menuService.findMenuById(idMenu);
-        model.addAttribute("menu", existingMenu);
+    public String changeMenuFormPage(@PathVariable Long idRestoran, Optional<Long> idMenu, Model model) {;
+        if (idMenu.isPresent()) {
+
+            model.addAttribute("id", idMenu.get());
+            Optional<MenuModel> existingMenuOptional = menuService.findMenuById(idMenu.get());
+            if (existingMenuOptional.isPresent()) {
+                MenuModel existingMenu = existingMenuOptional.get();
+                model.addAttribute("menu", existingMenu);
+            }
+        }
         model.addAttribute("title", "Ubah Menu");
         return "form-change-menu";
     }
@@ -102,7 +110,7 @@ public class MenuController {
     @RequestMapping(value= "/menu/delete", method=RequestMethod.POST)
     public String delete(@ModelAttribute RestoranModel restoran, Model model){
         for (MenuModel menu : restoran.getListMenu()){
-            menuService.deleteMenu(menu);
+            menuService.deleteMenu(menu.getId());
         }
         model.addAttribute("title", "Delete Menu");
         return "delete-menu";

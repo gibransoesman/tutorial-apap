@@ -10,15 +10,6 @@ public interface RestoranService{
         List<RestoranModel> getRestoranList();
         Optional<RestoranModel> getRestoranByIdRestoran(Long idRestoran);
         RestoranModel changeRestoran(RestoranModel restoranModel);
-        void deleteRestoran(Long idRestoran);
+        Long deleteRestoran(Long idRestoran);
         
 }
-// public interface RestoranService {
-//     void addRestoran(RestoranModel restoran);
-//     List<RestoranModel> getRestoranList();
-//     RestoranModel getRestoranByIdRestoran(String idRestoran);
-//     RestoranModel getRestoranByIdNama(String nama);
-//     RestoranModel deleteRestoranByIdRestoran(String idRestoran);
-//     RestoranModel updateRestoranNomorTelepon(String idRestoran, Integer nomorTelepon);
-
-// }

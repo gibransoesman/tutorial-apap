@@ -41,9 +41,9 @@ public class RestoranInMemoryService implements RestoranService {
 
 
     @Override
-    public void deleteRestoran(Long idRestoran) {
+    public Long deleteRestoran(Long idRestoran) {
         // TODO Auto-generated method stub
-
+        return null;
     }
 
         // @Override
