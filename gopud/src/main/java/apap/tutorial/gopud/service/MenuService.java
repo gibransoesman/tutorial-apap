@@ -7,11 +7,12 @@ import java.util.List;
 
 public interface MenuService {
     void addMenu(MenuModel menu);
+    
     List<MenuModel> findAllMenuByIdRestoran(Long idRestoran);
 
-    MenuModel findById(Long idMenu);
+    MenuModel findMenuById(Long idMenu);
 
-    MenuModel changeRestoran(MenuModel restoran);
+    MenuModel changeMenu(MenuModel restoran);
 
     void deleteMenu(MenuModel menu);
 }

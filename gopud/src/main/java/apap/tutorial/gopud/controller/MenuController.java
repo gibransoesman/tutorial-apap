@@ -85,7 +85,7 @@ public class MenuController {
     
     @RequestMapping(value = "/menu/change/{idMenu}", method = RequestMethod.GET)
     public String changeMenuFormPage(@PathVariable Long idRestoran, Long idMenu, Model model) {;
-        MenuModel existingMenu = menuService.findById(idMenu);
+        MenuModel existingMenu = menuService.findMenuById(idMenu);
         model.addAttribute("menu", existingMenu);
         model.addAttribute("title", "Ubah Menu");
         return "form-change-menu";
@@ -93,7 +93,7 @@ public class MenuController {
 
     @RequestMapping( value = "/menu/change/{idMenu}", method = RequestMethod.POST)
     public String changeMenuFormSumbit (@PathVariable Long idRestoran, Long idMenu, @ModelAttribute MenuModel menu, Model model){
-        MenuModel newMenuData = menuService.changeRestoran(menu);
+        MenuModel newMenuData = menuService.changeMenu(menu);
         model.addAttribute("menu", newMenuData);
         model.addAttribute("title", "Ubah Menu");
         return "change-menu";

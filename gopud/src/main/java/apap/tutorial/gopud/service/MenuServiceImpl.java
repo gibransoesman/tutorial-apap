@@ -26,28 +26,20 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public MenuModel findById(Long idMenu) {
-        try{
-            Optional<MenuModel> menu = menuDb.findById(idMenu);
-            return menu.get();
-        }catch (NoSuchElementException e){
-            throw  e;
-        }
+    public MenuModel findMenuById(Long idMenu) {
+        Optional<MenuModel> menu = menuDb.findById(idMenu);
+        return menu.get();
     }
 
     @Override
-    public MenuModel changeRestoran(MenuModel menu) {
-        try {
-            MenuModel targetMenu = findById(menu.getId());
-            targetMenu.setNama(menu.getNama());
-            targetMenu.setHarga(menu.getHarga());
-            targetMenu.setDurasiMasak(menu.getDurasiMasak());
-            targetMenu.setDeskripsi(menu.getDeskripsi());
-            menuDb.save(targetMenu);
-            return targetMenu;
-        } catch (NullPointerException nullException) {
-            throw nullException;
-        }
+    public MenuModel changeMenu(MenuModel menu) {
+        MenuModel targetMenu = findMenuById(menu.getId());
+        targetMenu.setNama(menu.getNama());
+        targetMenu.setHarga(menu.getHarga());
+        targetMenu.setDurasiMasak(menu.getDurasiMasak());
+        targetMenu.setDeskripsi(menu.getDeskripsi());
+        menuDb.save(targetMenu);
+        return targetMenu;
     }
 
     @Override
@@ -55,10 +47,4 @@ public class MenuServiceImpl implements MenuService {
         menuDb.delete(menu);
 
     }
-
-    // @Override
-    // public void deleteMenu(Long idMenu) {
-    //     MenuModel menu = findById(idMenu);
-    //     menuDb.deleteById(idMenu);
-    // }
 }
