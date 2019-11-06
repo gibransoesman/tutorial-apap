@@ -10,7 +10,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class MenuServiceImpl implements MenuService {
     @Autowired
     private MenuDb menuDb;
@@ -47,7 +50,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public long deleteMenu(Long idMenu) {
-        return menuDb.deleteByIdMenu(idMenu);
+    public void deleteMenu(Long idMenu) {
+        menuDb.deleteById(idMenu);
     }
 }
