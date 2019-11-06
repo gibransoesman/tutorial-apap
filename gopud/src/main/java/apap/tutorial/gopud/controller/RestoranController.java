@@ -50,7 +50,7 @@ public class RestoranController{
     }
     @RequestMapping( path = "/restoran/view", method = RequestMethod.GET)
     public String view (@RequestParam(value = "idRestoran") Long idRestoran, Model model){
-        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
+        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
         List<MenuModel> menuList = menuService.findAllMenuByIdRestoran(restoran.getIdRestoran());
         restoran.setListMenu(menuList);
         model.addAttribute("resto", restoran);
@@ -60,7 +60,7 @@ public class RestoranController{
 
     @RequestMapping( value = "/restoran/change/{idRestoran}", method = RequestMethod.GET)
     public String changeRestoranFormPage (@PathVariable Long idRestoran, Model model){
-        RestoranModel existingRestoran = restoranService.getRestoranByIdRestoran(idRestoran);
+        RestoranModel existingRestoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
         model.addAttribute("restoran", existingRestoran);
         model.addAttribute("title", "Ubah Restoran");
         return "form-change-restoran";
@@ -90,46 +90,3 @@ public class RestoranController{
 }
 
 }
-
-// @Controller
-// public class RestoranController {
-//     @Autowired
-//     private RestoranService restoranService;
-
-//     @RequestMapping("/restoran/add")
-//     public String add(
-//         @RequestParam(value = "idRestoran", required = true) String idRestoran,
-//         @RequestParam(value = "nama", required = true) String nama,
-//         @RequestParam(value = "alamat", required = true) String alamat,
-//         @RequestParam(value = "nomorTelepon", required = true) Integer nomorTelepon,
-//         Model model) {
-//             RestoranModel restoran = new RestoranModel(idRestoran, nama, alamat, nomorTelepon);
-//             restoranService.addRestoran(restoran);
-//             model.addAttribute("namaResto", nama);
-//             return "add-restoran";
-//         }
-    
-//     @RequestMapping("/restoran/update/id-restoran/{idRestoran}/nomor-telepon/{nomorTelepon}")
-//     public String update(
-//         @PathVariable(value = "idRestoran", required = true) String idRestoran,
-//         @PathVariable(value = "nomorTelepon", required = true) Integer nomorTelepon,
-//         Model model) {
-//             RestoranModel restoran = restoranService.updateRestoranNomorTelepon(idRestoran, nomorTelepon);
-//             model.addAttribute("resto", restoran);
-//             return "update-restoran";
-//         }
-
-// @RequestMapping("/restoran/view")
-// public String view(@RequestParam(value = "idRestoran") String idRestoran, Model model){
-//     RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
-//     model.addAttribute("resto", restoran);
-//     return "view-restoran";
-// }
-
-// @RequestMapping("/restoran/view/id-restoran/{idRestoran}")
-// public String viewLatihan(@PathVariable(value = "idRestoran") String idRestoran, Model model){
-//     RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
-//     model.addAttribute("resto", restoran);
-//     return "view-restoran";
-// }
-// }

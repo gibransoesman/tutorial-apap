@@ -2,6 +2,7 @@ package apap.tutorial.gopud.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,7 +33,7 @@ public class MenuController {
     @RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.GET)
     private String addMenuFormPage(@PathVariable(value = "idRestoran") Long idRestoran, Model model) {
         MenuModel menu = new MenuModel();
-        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
+        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
         ArrayList<MenuModel> listMenu = new ArrayList<>();
         listMenu.add(menu);
         restoran.setListMenu(listMenu);
@@ -67,7 +68,7 @@ public class MenuController {
 
     @RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.POST, params={"submit"})
     private String sumbitMenu(@ModelAttribute RestoranModel restoran, Model model) {
-        RestoranModel resto = restoranService.getRestoranByIdRestoran(restoran.getIdRestoran());
+        RestoranModel resto = restoranService.getRestoranByIdRestoran(restoran.getIdRestoran()).get();
         for (MenuModel menu : restoran.getListMenu()){
             menu.setRestoran(resto);
             menuService.addMenu(menu);
@@ -84,16 +85,23 @@ public class MenuController {
     // }
     
     @RequestMapping(value = "/menu/change/{idMenu}", method = RequestMethod.GET)
-    public String changeMenuFormPage(@PathVariable Long idRestoran, Long idMenu, Model model) {;
-        MenuModel existingMenu = menuService.findById(idMenu);
-        model.addAttribute("menu", existingMenu);
+    public String changeMenuFormPage(@PathVariable Long idRestoran, Optional<Long> idMenu, Model model) {;
+        if (idMenu.isPresent()) {
+
+            model.addAttribute("id", idMenu.get());
+            Optional<MenuModel> existingMenuOptional = menuService.findMenuById(idMenu.get());
+            if (existingMenuOptional.isPresent()) {
+                MenuModel existingMenu = existingMenuOptional.get();
+                model.addAttribute("menu", existingMenu);
+            }
+        }
         model.addAttribute("title", "Ubah Menu");
         return "form-change-menu";
     }
 
     @RequestMapping( value = "/menu/change/{idMenu}", method = RequestMethod.POST)
     public String changeMenuFormSumbit (@PathVariable Long idRestoran, Long idMenu, @ModelAttribute MenuModel menu, Model model){
-        MenuModel newMenuData = menuService.changeRestoran(menu);
+        MenuModel newMenuData = menuService.changeMenu(menu);
         model.addAttribute("menu", newMenuData);
         model.addAttribute("title", "Ubah Menu");
         return "change-menu";
@@ -102,7 +110,7 @@ public class MenuController {
     @RequestMapping(value= "/menu/delete", method=RequestMethod.POST)
     public String delete(@ModelAttribute RestoranModel restoran, Model model){
         for (MenuModel menu : restoran.getListMenu()){
-            menuService.deleteMenu(menu);
+            menuService.deleteMenu(menu.getId());
         }
         model.addAttribute("title", "Delete Menu");
         return "delete-menu";

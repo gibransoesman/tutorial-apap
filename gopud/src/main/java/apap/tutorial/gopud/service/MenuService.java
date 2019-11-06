@@ -4,14 +4,18 @@ import apap.tutorial.gopud.model.MenuModel;
 import apap.tutorial.gopud.model.RestoranModel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MenuService {
     void addMenu(MenuModel menu);
+    
     List<MenuModel> findAllMenuByIdRestoran(Long idRestoran);
 
-    MenuModel findById(Long idMenu);
+    Optional<MenuModel> findMenuById(Long idMenu);
 
-    MenuModel changeRestoran(MenuModel restoran);
+    MenuModel changeMenu(MenuModel restoran);
 
-    void deleteMenu(MenuModel menu);
+    long deleteMenu(Long idMenu);
+
+    List<MenuModel> getListMenuOrderByHargaAsc(long idRestoran);
 }
