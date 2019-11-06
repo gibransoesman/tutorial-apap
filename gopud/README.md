@@ -121,4 +121,28 @@ Hal-hal yang dapat menyebabkan di exlude antara lain file built-in , file yang m
 3. Apa itu ResponseEntity dan apa kegunaannya?
 - ResponseEntity mewakili seluruh respons HTTP: kode status, header, dan body. Karena itu, kita dapat menggunakannya untuk mengkonfigurasi respons HTTP sepenuhnya.
 
+
+# Tutorial APAP 7
+## Authors
+* **Gibran Gifari Soesman** - *1606876462* - *B*
+1. Jelaskan secara singkat perbedaan Otentikasi dan Otorisasi! Di bagian mana (dalam kode
+yang telah anda buat) konsep tersebut diimplementasi?
+
+Otentikasi adalah proses membuktikan keaslian. Ada sesuatu yang otentik jika tidak sah atau tiruan. Dalam sebuah program, otentikasi memvalidasi bahwa entitas adalah siapa atau apa klaimnya. Artinya, otentikasi membuktikan bahwa kamu adalah kamu, atau bahwa komputer atau program tertentu adalah apa yang diklaimnya. Jadi, pada intinya otentikasi adalah sebuah metode untuk membuktikan keaslian.
+Pada kodingan kita bisa melihat ini di WebSecurityConfig pada class configure
+
+Otorisasi adalah proses pengesahan. Ada yang berwenang melakukan X jika memiliki izin atau persetujuan untuk melakukan X. Dalam sebuah program, otorisasi memvalidasi bahwa pengguna dapat melakukan tindakan yang telah ditentukan. Artinya, begitu pengguna diotentikasi sebagai pengguna tertentu, otorisasi adalah tentang apa yang dapat penggunalakuan dan tidak dapat lakukan.
+pada kodingan kita bisa melihat ini di WebSecurityConfig dan juga pada halaman home dimana hanya ADMIN yang bisa menambahkan
+
+2. Apa itu BCryptPasswordEncoder? Jelaskan secara singkat cara kerjanya!
+BCrypt adalah cara melindungi password dengan cara enkripsi.
+Cara kerjanya adalah mengubah password dengan encoder nantinya ketika dipanggil maka bisa di decoder.
+
+3. Jelaskan secara singkat apa itu UUID dan mengapa kita memakai UUID di UserModel.java?
+UUID adalah kumpulan 32 karakter (String) yang dibuat secara acak (random) dengan teknik khusus yang dijamin unik untuk setiap data. kita menggunakan ini di usermodel agar tiap user memiliki data yang unik.
+
+4. Apa kegunaan class UserDetailsServiceImpl.java? Mengapa harus ada class tersebut
+padahal kita sudah memiliki class UserRoleServiceImpl.java?
+Untuk memberika user yang bisa melakukan otorikasi, berbeda dengan userroleservice apa yang dilakukan user yang sudah di otorikasi
+
      
