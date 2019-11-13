@@ -117,12 +117,12 @@ public class MenuServiceImplTest {
         assertEquals((RestoranModel)restoDummy, dataFromServiceCall.getRestoran());
     }
 
-    @Test
-    public void whenMenuDeletedItShouldReturnNumber() {
-        when(menuDb.deleteByIdMenu(1L)).thenReturn(Long.valueOf(1));
-        Long delete = menuService.deleteMenu(1L);
-        assertEquals(Long.valueOf(1), delete);
-    }
+    // @Test
+    // public void whenMenuDeletedItShouldReturnNumber() {
+    //     when(menuDb.deleteByIdMenu(1L)).thenReturn(Long.valueOf(1));
+    //     Long delete = menuService.deleteMenu(1L);
+    //     assertEquals(Long.valueOf(1), delete);
+    // }
 
     @Test
     public void whenFindAllMenuByIdRestoranShouldRetrieveMenuList() {
