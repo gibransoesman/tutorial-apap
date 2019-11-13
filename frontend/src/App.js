@@ -39,7 +39,7 @@ export default class App extends React.Component {
     
   render() {
     const {favItems} = this.state;
-    const content = <div> <EmptyState title="Belum Ada"/> </div>;
+    let content = <div> <EmptyState title="Belum Ada"/> </div>;
     if (favItems.length >0) {
       content = this.state.checked ? <div> <List
       title="My Favorite"
